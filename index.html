@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Smart Lighting Application</title>
+	<style>
+		.light {
+			display: inline-block;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			margin: 10px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Smart Lighting Application</h1>
+	<div>
+		<label for="light-select">Select a light:</label>
+		<select id="light-select" onchange="changeLight()">
+			<option value="1">Light 1</option>
+			<option value="2">Light 2</option>
+			<option value="3">Light 3</option>
+		</select>
+	</div>
+	<div>
+		<label for="color-input">Change the color:</label>
+		<input type="color" id="color-input" onchange="changeColor()">
+	</div>
+	<div>
+		<h2>Current Status:</h2>
+		<div class="light" id="light1"></div>
+		<div class="light" id="light2"></div>
+		<div class="light" id="light3"></div>
+	</div>
+	<script>
+		var selectedLight = "1";
+		var lightColors = {
+			"1": "yellow",
+			"2": "green",
+			"3": "blue"
+		};
+		var lightElements = {
+			"1": document.getElementById("light1"),
+			"2": document.getElementById("light2"),
+			"3": document.getElementById("light3")
+		};
+		
+		function changeLight() {
+			selectedLight = document.getElementById("light-select").value;
+		}
+		
+		function changeColor() {
+			var color = document.getElementById("color-input").value;
+			lightColors[selectedLight] = color;
+			lightElements[selectedLight].style.backgroundColor = color;
+		}
+		
+		function updateStatus() {
+			for (var lightId in lightColors) {
+				if (lightColors.hasOwnProperty(lightId)) {
+					lightElements[lightId].style.backgroundColor = lightColors[lightId];
+				}
+			}
+		}
+		
+		updateStatus();
+	</script>
+</body>
+</html>
